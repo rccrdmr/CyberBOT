@@ -130,29 +130,7 @@ streamlit run main.py
 
 ---
 
-## 🧪 Evaluation Capabilities
-
-CyberBOT includes built-in mechanisms for:
-- BERTScore, ROUGE, METEOR evaluation
-- Faithfulness and context tracking
-- User surveys and controlled experiments
-
----
-
 ## 📌 Notes
 
 Although this repo demonstrates the system on **cybersecurity**, our full demo also includes a separate Cloud Computing domain powered by PDF course materials — showing flexibility across **multiple RAG data sources**.
 
----
-
-## 👨‍🎓 Authors
-
-- Riccardo De Maria – ASU  
-- DMML Lab @ Arizona State University  
-- Dr. Huan Liu, Dr. Garima Agrawal, Chengshuai Zhao
-
----
-
-## 📜 License
-
-MIT License — Open for academic use and collaboration.
