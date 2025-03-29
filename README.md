@@ -1,144 +1,158 @@
 
-# 🛡️ CyberBOT: An AI-Powered Educational Assistant for Cybersecurity Learning
+# 🛡️ CyberBOT
 
-CyberBOT is a **domain-specific AI assistant** designed to support student learning in **Cybersecurity** and **Cloud Computing**, with a strong emphasis on **trustworthy AI practices** such as:
+CyberBOT is an AI-powered educational assistant that supports university students in learning **Cybersecurity** and **Cloud Computing** through question answering, ontology validation, and follow-up contextualization.
 
-- ✅ Ontology-based Answer Validation  
-- ✅ Domain-Specific Reasoning (Cybersecurity vs. Cloud)  
-- ✅ Context Tracking for Follow-Up Questions  
-
-This system goes **beyond traditional RAG** by ensuring factual consistency, intent clarification, and meaningful multi-turn interaction.
+This repo hosts the demo for the **ACL 2025** paper using only the **Cybersecurity QA dataset**, curated from:  
+🔗 [AISecKG Cybersecurity Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
 
 ---
 
-## 📸 System Architecture
+## 🔍 What Makes CyberBOT Unique?
 
-![System Pipeline](./illustrations/pipeline.png)
+✅ **Ontology-based Answer Validation**  
+✅ **Intent Rewriting for Follow-up Questions**  
+✅ **Domain-Specific Context Retrieval from QA Pairs**  
 
----
-
-## 🧠 Key Features
-
-| Component         | Model Name                                        | Purpose                                                        |
-|------------------|---------------------------------------------------|----------------------------------------------------------------|
-| **Embedding**     | `BAAI/bge-large-en-v1.5`                          | Vector search via FAISS for question matching                  |
-| **Answering**     | `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Generates informative answers                                  |
-| **Intent Rewrite**| `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Rewrites vague or follow-up questions to standalone form       |
-| **Validation**    | `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Verifies answers against cybersecurity ontology                |
+CyberBOT enhances standard RAG pipelines by verifying answers using domain-specific knowledge and adapting to conversational context.
 
 ---
 
-## 🔍 Use Case
+## 💡 End-to-End Use Case
 
-![Use Case Illustration](./illustrations/case.png)
-
-CyberBOT allows users to engage in natural conversation around cybersecurity concepts. Each generated answer is validated for factual alignment using a curated **ontology**.
+![case](./images/case.png)
 
 ---
 
-## 💡 Why CyberBOT is Different
+## 🧠 System Pipeline
 
-Regular RAG systems retrieve content and generate answers, but may hallucinate or misinterpret vague questions. **CyberBOT is different**:
-
-- ✅ **Follow-up Detection**: Detects if a question lacks context and rewrites it  
-- ✅ **Ontology Validation**: Guarantees answers are grounded in a knowledge base  
-- ✅ **Domain-Specific Reasoning**: Handles multiple domains (e.g., Cyber vs. Cloud)
-
-> 📌 For this repo, we focus on the **Cybersecurity QA dataset**:  
-> [AISecKG Cybersecurity QA Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
+![pipeline](./images/pipeline.png)
 
 ---
 
-## 🧠 Example Pipeline Flow
+## 🧩 Full Stack Overview
 
-![Pipeline Illustration](./illustrations/illustration.png)
+![illustration](./images/illustration.png)
 
 ---
 
-## 🗂️ Project Structure
+## 🧱 System Components
+
+| Component         | Model Name                                    | Purpose                                                    |
+|------------------|-----------------------------------------------|------------------------------------------------------------|
+| **Embedding**     | `BAAI/bge-large-en-v1.5`                       | Vector search via FAISS (query/document matching)         |
+| **Answering**     | `meta-llama/Llama-3.3-70B-Instruct-Turbo`      | Generates responses to user questions                      |
+| **Intent Rewrite**| `meta-llama/Llama-3.3-70B-Instruct-Turbo`      | Rewrites follow-ups into standalone questions              |
+| **Validation**    | `meta-llama/Llama-3.3-70B-Instruct-Turbo`      | Validates answer against ontology, returns Pass/Fail       |
+
+---
+
+## 📁 Project Structure
 
 ```
 CyberBOT/
 ├── backend/             # FastAPI backend
-│   ├── api.py, auth.py, routes.py
-│   ├── answer_retriever.py, ontology_validator.py
-│   └── llm_infer.py, db.py, config.py, utils.py
+│   ├── api.py
+│   ├── answer_retriever.py
+│   ├── llm_infer.py
+│   ├── ontology_validator.py
+│   ├── auth.py, db.py, models.py, routes.py
+│   └── utils.py, config.py
 │
-├── frontend/            # Streamlit frontend
+├── frontend/            # Streamlit app
 │   ├── main.py
-│   └── pages/chat.py, access.py
+│   └── pages/
+│       ├── access.py
+│       └── chat.py
 │
-├── dataset/             # QA and Ontology datasets
-│   ├── ontology.txt, ontology.csv, kb.csv
+├── dataset/             # Ontology + QA pairs
+│   └── ontology/
+│       ├── ontology.txt
+│       └── ontology.csv
 │
-├── qapair-embedder.py   # Embeds QA pairs (creates .npy and metadata)
-├── faiss_index.py       # Builds FAISS index from QA embeddings
-├── requirements.txt
+├── qapair-embedder.py   # Embedding script for QA pairs
+├── faiss_index.py       # Index builder script using FAISS
+├── requirements.txt     # Python dependencies
 └── README.md
 ```
 
 ---
 
-## ⚙️ Quickstart Guide
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repo
 
 ```bash
-# Clone the repo
 git clone https://github.com/rccrdmr/CyberBOT.git
 cd CyberBOT
+```
 
-# Set up environment
-python -m venv venv && source venv/bin/activate
+### 2. Set Up Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+```
 
-# Export Together API key
-export TOGETHER_API_KEY="your-key-here"
+### 3. Add Together API Key
 
-# Generate QA embeddings and metadata
+```bash
+export TOGETHER_API_KEY="your-api-key-here"
+```
+
+### 4. Embed QA Dataset
+
+```bash
 python qapair-embedder.py
-python faiss_index.py
+```
 
-# Start backend (FastAPI)
+### 5. Run Backend
+
+```bash
 cd backend
 uvicorn api:app --reload
+```
 
-# Start frontend (Streamlit)
-cd ../frontend
+### 6. Run Frontend
+
+```bash
+cd frontend
 streamlit run main.py
 ```
 
 ---
 
-## 📑 Validation Ontology
+## 🧠 Dataset & Validation
 
-Located at `dataset/ontology/ontology.txt`, this file contains hand-curated triples such as:
-
-```
-attacker, can_exploit, vulnerability
-firewall, can_prevent, network_attack
-data, can_be_protected_by, encryption
-```
-
-These are used for **answer validation** using prompt-based checking with LLMs.
+- **QA Pairs**: From the [AISecKG Cybersecurity Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
+- **Ontology**: Used to validate LLM-generated answers and enforce alignment with domain-specific concepts
 
 ---
 
-## 📝 Future Enhancements
+## 🧪 Evaluation Capabilities
 
-- [ ] Admin upload interface for new QA pairs  
-- [ ] PDF ingestion and document-based RAG for Cloud Computing  
-- [ ] Feedback and upvoting system for user answers  
-- [ ] Gamified quiz mode for cybersecurity training  
-
----
-
-## 👨‍💻 Authors
-
-- **Riccardo De Maria** – [@rccrdmr](https://github.com/rccrdmr)  
-- **Advised by**: Dr. Huan Liu, DMML Lab @ Arizona State University  
-- **Supported by**: Jongchan, Chengshuai Zhao, Satvik Kumar, Yuli, and Dr. Chen  
+CyberBOT includes built-in mechanisms for:
+- BERTScore, ROUGE, METEOR evaluation
+- Faithfulness and context tracking
+- User surveys and controlled experiments
 
 ---
 
-## 📄 License
+## 📌 Notes
 
-MIT License — Free to use, extend, and adapt for educational research.
+Although this repo demonstrates the system on **cybersecurity**, our full demo also includes a separate Cloud Computing domain powered by PDF course materials — showing flexibility across **multiple RAG data sources**.
+
+---
+
+## 👨‍🎓 Authors
+
+- Riccardo De Maria – ASU  
+- DMML Lab @ Arizona State University  
+- Dr. Huan Liu, Dr. Garima Agrawal, Chengshuai Zhao
+
+---
+
+## 📜 License
+
+MIT License — Open for academic use and collaboration.
