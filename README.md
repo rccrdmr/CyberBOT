@@ -1,176 +1,144 @@
-# 🛡️ CyberBOT
 
-CyberBOT is an AI-powered educational assistant built to support student learning in **Cybersecurity** through interactive question answering, ontology validation, and personalized feedback.
+# 🛡️ CyberBOT: An AI-Powered Educational Assistant for Cybersecurity Learning
 
-This project is developed as part of the **ACL 2025 Demonstration Track**.
+CyberBOT is a **domain-specific AI assistant** designed to support student learning in **Cybersecurity** and **Cloud Computing**, with a strong emphasis on **trustworthy AI practices** such as:
 
----
+- ✅ Ontology-based Answer Validation  
+- ✅ Domain-Specific Reasoning (Cybersecurity vs. Cloud)  
+- ✅ Context Tracking for Follow-Up Questions  
 
-## 🎓 Purpose
-
-CyberBOT is designed to provide students with accurate and context-aware answers to cybersecurity-related questions by combining:
-
-- 🔍 **Retrieval-Augmented Generation (RAG)** using QA pairs
-- 🧠 **Large Language Models (LLMs)** via Together API (LLaMA-3 70B)
-- 📚 **Ontology-based validation** to ensure factual correctness
-- 👤 **User-level tracking** and learning history
-- 🖼️ **Streamlit frontend** with a FastAPI backend
+This system goes **beyond traditional RAG** by ensuring factual consistency, intent clarification, and meaningful multi-turn interaction.
 
 ---
 
-## 📚 Dataset
+## 📸 System Architecture
 
-CyberBOT uses a publicly available QA dataset focused on cybersecurity:
-
-- [AISecKG Cybersecurity QA Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
-
-The dataset includes hundreds of question-answer pairs grounded in cybersecurity concepts, including threat modeling, cryptography, system vulnerabilities, cloud security, and more.
+![System Pipeline](./illustrations/pipeline.png)
 
 ---
 
-## 🚀 Features
+## 🧠 Key Features
 
-- ✅ Ask cybersecurity questions and get LLM-generated answers
-- ✅ Follow-up questions are automatically rewritten for clarity
-- ✅ Retrieves relevant QA context using FAISS similarity search
-- ✅ Validates each answer against a domain ontology
-- ✅ Tracks per-user question and answer history in a local DB
+| Component         | Model Name                                        | Purpose                                                        |
+|------------------|---------------------------------------------------|----------------------------------------------------------------|
+| **Embedding**     | `BAAI/bge-large-en-v1.5`                          | Vector search via FAISS for question matching                  |
+| **Answering**     | `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Generates informative answers                                  |
+| **Intent Rewrite**| `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Rewrites vague or follow-up questions to standalone form       |
+| **Validation**    | `meta-llama/Llama-3.3-70B-Instruct-Turbo`         | Verifies answers against cybersecurity ontology                |
 
 ---
 
-## 📁 Project Structure
+## 🔍 Use Case
+
+![Use Case Illustration](./illustrations/case.png)
+
+CyberBOT allows users to engage in natural conversation around cybersecurity concepts. Each generated answer is validated for factual alignment using a curated **ontology**.
+
+---
+
+## 💡 Why CyberBOT is Different
+
+Regular RAG systems retrieve content and generate answers, but may hallucinate or misinterpret vague questions. **CyberBOT is different**:
+
+- ✅ **Follow-up Detection**: Detects if a question lacks context and rewrites it  
+- ✅ **Ontology Validation**: Guarantees answers are grounded in a knowledge base  
+- ✅ **Domain-Specific Reasoning**: Handles multiple domains (e.g., Cyber vs. Cloud)
+
+> 📌 For this repo, we focus on the **Cybersecurity QA dataset**:  
+> [AISecKG Cybersecurity QA Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
+
+---
+
+## 🧠 Example Pipeline Flow
+
+![Pipeline Illustration](./illustrations/illustration.png)
+
+---
+
+## 🗂️ Project Structure
 
 ```
 CyberBOT/
-├── backend/                  # FastAPI backend
-│   ├── api.py                # Main app entrypoint
-│   ├── answer_retriever.py   # Retrieves context using FAISS + QA dataset
-│   ├── auth.py               # User auth system (register/login)
-│   ├── db.py, models.py      # SQLAlchemy models + DB setup
-│   ├── llm_infer.py          # Calls LLM (Together API)
-│   ├── followup_detector.py  # Detects vague/follow-up questions
-│   ├── ontology_validator.py # Validates answers using ontology
-│   ├── routes.py             # Stores QA history to DB
-│   ├── utils.py, config.py
+├── backend/             # FastAPI backend
+│   ├── api.py, auth.py, routes.py
+│   ├── answer_retriever.py, ontology_validator.py
+│   └── llm_infer.py, db.py, config.py, utils.py
 │
-├── frontend/                 # Streamlit UI
-│   ├── main.py               # Landing page
-│   └── pages/
-│       ├── access.py         # Login/signup interface
-│       └── chat.py           # Chat interface
+├── frontend/            # Streamlit frontend
+│   ├── main.py
+│   └── pages/chat.py, access.py
 │
-├── dataset/
-│   ├── kb/kb.csv             # Cybersecurity QA dataset
-│   └── ontology/             # Ontology for answer validation
-│       ├── ontology.txt
-│       └── ontology.csv
+├── dataset/             # QA and Ontology datasets
+│   ├── ontology.txt, ontology.csv, kb.csv
 │
-├── qapair-embedder.py        # Script to encode QA pairs + save metadata
-├── faiss_index.py            # Builds FAISS index from QA embeddings
-├── requirements.txt          # Python dependencies
-└── README.md                 # You're here!
+├── qapair-embedder.py   # Embeds QA pairs (creates .npy and metadata)
+├── faiss_index.py       # Builds FAISS index from QA embeddings
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## ⚙️ Getting Started
-
-### 1. Clone the Repository
+## ⚙️ Quickstart Guide
 
 ```bash
+# Clone the repo
 git clone https://github.com/rccrdmr/CyberBOT.git
 cd CyberBOT
-```
 
-### 2. Set Up the Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate
+# Set up environment
+python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### 3. Add Your API Key
+# Export Together API key
+export TOGETHER_API_KEY="your-key-here"
 
-Set your Together API key:
-
-```bash
-export TOGETHER_API_KEY="your-api-key"
-```
-
-### 4. Generate QA Embeddings
-
-```bash
+# Generate QA embeddings and metadata
 python qapair-embedder.py
-```
-
-This generates:
-- `qa_embeddings.npy`
-- `qa_metadata.json`
-
-### 5. Build the FAISS Index
-
-```bash
 python faiss_index.py
-```
 
-This creates:
-- `qa_faiss.index`
-
-### 6. Run the Backend
-
-```bash
+# Start backend (FastAPI)
 cd backend
 uvicorn api:app --reload
-```
 
-### 7. Run the Frontend
-
-```bash
-cd frontend
+# Start frontend (Streamlit)
+cd ../frontend
 streamlit run main.py
 ```
 
 ---
 
-## 🧠 Retrieval and Answer Pipeline
+## 📑 Validation Ontology
 
-1. User submits a question.
-2. If it's vague or follow-up, it is rewritten via LLM.
-3. FAISS retrieves similar QA examples from the cybersecurity dataset.
-4. A context-aware prompt is built for the LLM.
-5. The answer is validated using the domain ontology.
-6. Validated answers are stored and shown in the UI.
+Located at `dataset/ontology/ontology.txt`, this file contains hand-curated triples such as:
 
----
-
-## ✅ Requirements
-
-Major dependencies:
-
-- `fastapi`, `uvicorn`, `streamlit`
-- `sentence-transformers`, `faiss-cpu`
-- `together`, `pydantic`, `sqlalchemy`, `passlib`
-
-Install with:
-
-```bash
-pip install -r requirements.txt
+```
+attacker, can_exploit, vulnerability
+firewall, can_prevent, network_attack
+data, can_be_protected_by, encryption
 ```
 
----
-
-## 🧑‍💻 Author
-
-- Riccardo De Maria ([GitHub @rccrdmr](https://github.com/rccrdmr))  
-- Arizona State University – Data Mining and Machine Learning Lab (DMML)
+These are used for **answer validation** using prompt-based checking with LLMs.
 
 ---
 
-## 📜 License
+## 📝 Future Enhancements
 
-MIT License — Open for academic and educational use.
+- [ ] Admin upload interface for new QA pairs  
+- [ ] PDF ingestion and document-based RAG for Cloud Computing  
+- [ ] Feedback and upvoting system for user answers  
+- [ ] Gamified quiz mode for cybersecurity training  
 
 ---
 
-*“The best defense against cyberattacks is a well-trained mind and a vigilant eye.” – Dr. Bruce Schneier*
+## 👨‍💻 Authors
+
+- **Riccardo De Maria** – [@rccrdmr](https://github.com/rccrdmr)  
+- **Advised by**: Dr. Huan Liu, DMML Lab @ Arizona State University  
+- **Supported by**: Jongchan, Chengshuai Zhao, Satvik Kumar, Yuli, and Dr. Chen  
+
+---
+
+## 📄 License
+
+MIT License — Free to use, extend, and adapt for educational research.
