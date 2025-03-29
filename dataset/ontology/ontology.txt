@@ -1,0 +1,140 @@
+1. Cybersecurity Ontology
+system,can_expose,attack
+system,can_expose,vulnerability
+app,has_a,feature
+tool,part_of,tool
+tool,has_a,function
+tool,can_analyze,function
+tool,can_analyze,apps
+tool,can_analyze,vulnerability
+tool,implements,technique
+tool,has_a,feature
+function,can_expose,attack
+function,has_a,feature
+function,uses,tool
+attack,implements,feature
+feature,can_expose,attack
+attacker,can_exploit,vulnerability
+attacker,can_exploit,feature
+securityTeam,can_analyze,vulnerability
+securityTeam,can_analyze,feature
+securityTeam,can_exploit,app
+securityTeam,uses,technique
+securityTeam,implements,function
+securityTeam,uses,system
+securityTeam,uses,tool
+user,uses,system
+user,can_expose,vulnerability
+
+# Entity categories and types
+entities = {
+    "Cybersecurity": {
+        "feature": ["Session ID", "Cookies", "Protocol", "Alert"],
+        "data": ["TCP SYN Packet", "Traffic", "folder"],
+        "function": ["XOR", "Reverse", "ICMP Rules"],
+        "attack": ["SQL Injection", "Theft", "Intrusion"],
+        "technique": ["HoneyPot", "Risk Assessment", "Severity Analysis"],
+        "vulnerability": ["Weak password", "Bad config"],
+        "tool": ["Logger", "Hping3", "snort"],
+        "system": ["Unix", "Home network"],
+        "app": ["browser", "Webbapp", "RPC services"],
+        "securityTeam": ["team Defense", "White Hacker", "Ethical hacker"],
+        "attacker": ["cybercriminals"]
+    }
+}
+
+2. Cloud Computing Ontology
+# Entity categories and types
+entities = {
+    "Concept": {
+        "characteristic": ["On-demand self-service", "Resource pooling", "Rapid elasticity"],
+        "technique": ["Load balancing", "Auto-scaling", "Virtualization", "Client-server model"],
+        "security measure": ["Data encryption", "Multi-factor authentication"],
+        "standard": ["NIST Cloud Definition", "GDPR Compliance"]
+    },
+    "Service Model": {
+        "infrastructure": ["IaaS", "Virtual Machines", "Storage Services"],
+        "platform": ["PaaS", "Google App Engine", "AWS Lambda"],
+        "software": ["SaaS", "Google Drive", "Microsoft 365"]
+    },
+    "Deployment Model": {
+        "public cloud": ["AWS", "Google Cloud", "Microsoft Azure"],
+        "private cloud": ["On-premises cloud", "VMware vSphere"],
+        "hybrid cloud": ["AWS Outposts", "Azure Arc"]
+    },
+    "Application": {
+        "tool": ["Kubernetes", "Docker", "Terraform"],
+        "system": ["Cloud Storage", "Serverless Functions"],
+        "service": ["Cloud Database", "Identity Management"]
+    },
+    "Role": {
+        "provider": ["AWS", "Google Cloud", "IBM Cloud"],
+        "consumer": ["Business User", "Developer", "Researcher"],
+        "administrator": ["Cloud Architect", "Security Engineer"]
+    }
+}
+
+# Relations
+relations = [
+    "has_a", "can_host", "can_provide", "implements", "uses", "can_secure",
+    "is_part_of", "can_scale", "can_monitor", "can_migrate", "can_deploy"
+]
+
+# Mapping of relationships between cloud computing entities
+cloud_triples= {
+    "has_a": [
+        ("Service Model", "infrastructure", "Concept", "technique"),
+        ("Service Model", "platform", "Concept", "technique"),
+        ("Service Model", "software", "Concept", "characteristic"),
+        ("Deployment Model", "public cloud", "Application", "service"),
+        ("Deployment Model", "private cloud", "Application", "system")
+    ],
+    "can_host": [
+        ("Deployment Model", "public cloud", "Service Model", "software"),
+        ("Deployment Model", "hybrid cloud", "Application", "system"),
+        ("Service Model", "platform", "Application", "service")
+    ],
+    "can_provide": [
+        ("Service Model", "infrastructure", "Application", "system"),
+        ("Service Model", "platform", "Application", "service"),
+        ("Service Model", "software", "Application", "service"),
+        ("Service Model", "software", "Concept", "technique")
+    ],
+    "implements": [
+        ("Role", "provider", "Concept", "standard"),
+        ("Role", "administrator", "Concept", "security measure")
+    ],
+    "uses": [
+        ("Application", "tool", "Concept", "technique"),
+        ("Service Model", "software", "Application", "service"),
+        ("Application", "system", "Concept", "security measure"),
+        ("Application", "system", "Concept", "technique"),
+        ("Application", "service", "Concept", "technique")
+    ],
+    "can_secure": [
+        ("Concept", "security measure", "Application", "system"),
+        ("Application", "service", "Concept", "security measure"),
+        ("Role", "administrator", "Application", "system")
+    ],
+    "is_part_of": [
+        ("Service Model", "platform", "Service Model", "infrastructure"),
+        ("Service Model", "software", "Service Model", "platform"),
+        ("Application", "system", "Service Model", "infrastructure")
+    ],
+    "can_scale": [
+        ("Concept", "technique", "Service Model", "infrastructure"),
+        ("Concept", "technique", "Application", "system")
+    ],
+    "can_monitor": [
+        ("Application", "tool", "Application", "system"),
+        ("Application", "tool", "Deployment Model", "public cloud")
+    ],
+    "can_migrate": [
+        ("Deployment Model", "hybrid cloud", "Application", "system"),
+        ("Deployment Model", "hybrid cloud", "Service Model", "infrastructure")
+    ],
+    "can_deploy": [
+        ("Application", "tool", "Application", "service"),
+        ("Service Model", "platform", "Application", "system")
+    ]
+}

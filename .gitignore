@@ -1,0 +1,15 @@
+/backend/__pycache__
+/backend/old
+/backend/backend.log
+/backend/data.db
+/backend/doc_faiss.index
+/backend/document_embeddings.npy
+/backend/document_metadata.json
+
+/dataset/kb/Chapter 1.pdf
+/dataset/kb/Chapter 2 (Part I).pdf
+/dataset/qa/
+
+/frontend/frontend.log
+
+/backend/retriever.py
