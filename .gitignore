@@ -5,6 +5,9 @@
 /backend/doc_faiss.index
 /backend/document_embeddings.npy
 /backend/document_metadata.json
+/backend/qa_faiss.index
+/backend/qa_embeddings.npy
+/backend/qa_metadata.json
 
 /dataset/kb/Chapter 1.pdf
 /dataset/kb/Chapter 2 (Part I).pdf
