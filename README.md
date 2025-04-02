@@ -134,3 +134,27 @@ streamlit run main.py
 
 Although this repo demonstrates the system on **cybersecurity**, our full demo also includes a separate Cloud Computing domain powered by PDF course materials — showing flexibility across **multiple RAG data sources**.
 
+## 📑 Citation
+
+```tex
+@misc{zhao2025cyberbotreliablecybersecurityeducation,
+      title={CyberBOT: Towards Reliable Cybersecurity Education via Ontology-Grounded Retrieval Augmented Generation}, 
+      author={Chengshuai Zhao and Riccardo De Maria and Tharindu Kumarage and Kumar Satvik Chaudhary and Garima Agrawal and Yiwen Li and Jongchan Park and Yuli Deng and Ying-Chih Chen and Huan Liu},
+      year={2025},
+      eprint={2504.00389},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2504.00389}, 
+}
+
+@article{zhao2024ontology,
+  title={Ontology-Aware RAG for Improved Question-Answering in Cybersecurity Education},
+  author={Zhao, Chengshuai and Agrawal, Garima and Kumarage, Tharindu and Tan, Zhen and Deng, Yuli and Chen, Ying-Chih and Liu, Huan},
+  journal={arXiv preprint arXiv:2412.14191},
+  year={2024}
+}
+```
+
+---
+
+## 
