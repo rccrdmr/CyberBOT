@@ -1,10 +1,8 @@
-
 # 🛡️ CyberBOT
 
-CyberBOT is an AI-powered educational assistant that supports university students in learning **Cybersecurity** and **Cloud Computing** through question answering, ontology validation, and follow-up contextualization.
+🔗 [[Paper]](https://arxiv.org/abs/2504.00389) [[Video]](https://www.youtube.com/watch?v=m4ZCyS4u210&ab_channel=RiccardoDeMaria)
 
-This repo hosts the demo for the **ACL 2025** paper using only the **Cybersecurity QA dataset**, curated from:  
-🔗 [AISecKG Cybersecurity Dataset](https://github.com/garima0106/AISecKG-cybersecurity-dataset)
+CyberBOT is an AI-powered educational assistant that supports university students in learning **Cybersecurity** and **Cloud Computing** through question answering, ontology validation, and follow-up contextualization.
 
 ---
 
@@ -134,6 +132,8 @@ streamlit run main.py
 
 Although this repo demonstrates the system on **cybersecurity**, our full demo also includes a separate Cloud Computing domain powered by PDF course materials — showing flexibility across **multiple RAG data sources**.
 
+---
+
 ## 📑 Citation
 
 ```tex
@@ -154,7 +154,3 @@ Although this repo demonstrates the system on **cybersecurity**, our full demo a
   year={2024}
 }
 ```
-
----
-
-## 
