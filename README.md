@@ -134,7 +134,7 @@ Although this repo demonstrates the system on **cybersecurity**, our full demo a
 
 ---
 
-## 📑 Citation
+## 📑 Citations
 
 ```tex
 @misc{zhao2025cyberbotreliablecybersecurityeducation,
