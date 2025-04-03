@@ -64,6 +64,8 @@ CyberBOT/
 │       └── chat.py
 │
 ├── dataset/             # Ontology + QA pairs
+│   ├── kb/
+│   │   └── kb.csv
 │   └── ontology/
 │       ├── ontology.txt
 │       └── ontology.csv
