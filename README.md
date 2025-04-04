@@ -139,14 +139,11 @@ Although this repo demonstrates the system on **cybersecurity**, our full demo a
 ## 📑 Citations
 
 ```tex
-@misc{zhao2025cyberbotreliablecybersecurityeducation,
-      title={CyberBOT: Towards Reliable Cybersecurity Education via Ontology-Grounded Retrieval Augmented Generation}, 
-      author={Chengshuai Zhao and Riccardo De Maria and Tharindu Kumarage and Kumar Satvik Chaudhary and Garima Agrawal and Yiwen Li and Jongchan Park and Yuli Deng and Ying-Chih Chen and Huan Liu},
-      year={2025},
-      eprint={2504.00389},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2504.00389}, 
+@article{zhao2025cyberbot,
+  title={CyberBOT: Towards Reliable Cybersecurity Education via Ontology-Grounded Retrieval Augmented Generation},
+  author={Zhao, Chengshuai and De Maria, Riccardo and Kumarage, Tharindu and Chaudhary, Kumar Satvik and Agrawal, Garima and Li, Yiwen and Park, Jongchan and Deng, Yuli and Chen, Ying-Chih and Liu, Huan},
+  journal={arXiv preprint arXiv:2504.00389},
+  year={2025}
 }
 
 @article{zhao2024ontology,
